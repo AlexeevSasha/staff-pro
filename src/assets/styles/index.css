@@ -1,0 +1,34 @@
+
+html, body { width: 100%; height: 100%; }
+body {
+    margin: 0;
+    padding: 0;
+    background: white;
+}
+
+.ant-layout {
+    background: white;
+    font-weight: 400;
+}
+
+.ant-form-item-label>label.ant-form-item-required:not(.ant-form-item-required-mark-optional):before {
+    content: unset;
+}
+
+
+/*.ant-select-arrow .anticon >svg {*/
+/*    fill:  #1890FF;*/
+/*}*/
+
+/*.ant-select-item-option-content {*/
+/*    padding-left: 30px;*/
+/*}*/
+
+/*.ant-select-item-option-selected:not(.ant-select-item-option-disabled) {*/
+/*    color: #1890FF;*/
+/*}*/
+
+/*.ant-select-item-option-selected:not(.ant-select-item-option-disabled)::before {*/
+/*    position: absolute;*/
+/*    content: url('../icons/check.svg');*/
+/*}*/

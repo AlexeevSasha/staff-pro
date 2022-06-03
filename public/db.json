@@ -1,0 +1,76 @@
+{
+  "users": [
+    {
+      "email": "alex@mail.ru",
+      "lastname": "Alexeev",
+      "name": "Alexander",
+      "patronymic": "Nongo",
+      "password": "xzxz24520",
+      "day": 25,
+      "month": "july",
+      "year": 1996,
+      "sex": "man",
+      "id": 1
+    },
+    {
+      "email": "qwefqewfhbqwkufe@mail.ru",
+      "lastname": "dqwefqewfhbqwkufe@mail.ru",
+      "name": "qwefqewfhbqwkufe@mail.ru",
+      "patronymic": "qwefqewfhbqwkufe@mail.ru",
+      "password": "qwefqewfhbqwkufe@mail.ru",
+      "day": 31,
+      "month": "january",
+      "year": 1900,
+      "sex": "man",
+      "id": 2
+    },
+    {
+      "email": "qwefqewfhbqswkufe@mail.ru",
+      "lastname": "qwefqewfhbqwkufe@mail.ru",
+      "name": "qwefqewfhbqswkufe@mail.ru",
+      "patronymic": "qwefqewfhbqswkufe@mail.ru",
+      "password": "qwefqewfhbqswkufe@mail.ru",
+      "day": 31,
+      "month": "january",
+      "year": 1900,
+      "sex": "man",
+      "id": 3
+    },
+    {
+      "email": "dsafashjdfbas@mail.ru",
+      "lastname": "dsafashjdfbas@mail.ru",
+      "name": "dsafashjdfbas@mail.ru",
+      "patronymic": "dsafashjdfbas@mail.ru",
+      "password": "dsafashjdfbas@mail.ru",
+      "day": 31,
+      "month": "february",
+      "year": 1900,
+      "sex": "man",
+      "id": 4
+    },
+    {
+      "email": "dsafashdjdfbas@mail.ru",
+      "lastname": "dsafashjdfbas@mail.ru",
+      "name": "dsafashjdfbas@mail.ru",
+      "patronymic": "dsafashjdfbas@mail.ru",
+      "password": "deswfasdf",
+      "day": 31,
+      "month": "january",
+      "year": 1900,
+      "sex": "man",
+      "id": 5
+    },
+    {
+      "email": "dsfasdf@mail.ru",
+      "lastname": "dsfasdf@mail.ru",
+      "name": "dsfasdf@mail.ru",
+      "patronymic": "dsfasdf@mail.ru",
+      "password": "dsfasdf@mail.ru",
+      "day": 31,
+      "month": "january",
+      "year": 1900,
+      "sex": "man",
+      "id": 6
+    }
+  ]
+}

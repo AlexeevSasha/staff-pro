@@ -18,7 +18,13 @@ const initialState: IInitialState = {
 const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {},
+    reducers: {
+        logout(state) {
+            state.user = null;
+            state.status = STATUS.NEVER
+            localStorage.removeItem('user')
+        }
+    },
     extraReducers: (builder => {
         builder.addCase(loginThunk.pending, (state) => {
             state.status = STATUS.LOADED;
@@ -48,5 +54,7 @@ const authSlice = createSlice({
 function isError(action: AnyAction) {
     return action.type.endsWith('rejected')
 }
+
+export const {logout} = authSlice.actions
 
 export default authSlice.reducer

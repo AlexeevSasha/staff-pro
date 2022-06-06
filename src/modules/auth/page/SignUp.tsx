@@ -7,14 +7,13 @@ import {SignUpType} from "../../../api/auth/authDto";
 import {useAppDispatch} from "../../../core/redux/reduxType";
 import {registerThunk} from "../authThunk";
 
-// cb: () => navigate('/dashboard')
 export const SignUp: FC = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const onFinish = (data: SignUpType) => {
         delete data.agree;
         delete data.confirm;
-        dispatch(registerThunk({data}))
+        dispatch(registerThunk({data, cb: () => navigate('/dashboard')}))
     };
     return (
         <Flex>

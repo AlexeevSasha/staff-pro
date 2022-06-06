@@ -14,10 +14,8 @@ export const LanguageHeader = () => {
                 <GlobalOutlined style={{fontSize: 21, color: '#8C8C8C'}}/>
                 <TextStyle>Сменить язык на <span style={{color: '#1890ff'}}>english</span>? </TextStyle>
                 <SelectStyle defaultValue="русский" bordered={false} dropdownStyle={{minWidth: "120px"}}>
-                    <OptionStyle value="deutsch">Deutsch</OptionStyle>
-                    <Option value="english">English</Option>
                     <Option value="русский">Русский</Option>
-                    <Option value="italiano">Italiano</Option>
+                    <Option value="english">English</Option>
                 </SelectStyle>
             </Flex>
             <CloseOutlined/>
@@ -38,23 +36,6 @@ const SelectStyle = styled(Select)`
     font-size: 14px;
   }
 `
-
-const OptionStyle = styled(Option)`
-  .ant-select-arrow .anticon >svg {
-    fill:  #1890FF;
-  }
-
-  .ant-select-item-option-content {
-    padding-left: 30px;
-  }
-
-  .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
-    color: #1890FF;
-  }
-  
-`
-
-
 
 const HeaderStyle = styled(Header)`
   position: relative;

@@ -1,7 +1,7 @@
 import {AnyAction, createSlice} from '@reduxjs/toolkit'
 import {STATUS} from "../../core/redux/reduxType";
 import {IAuthFromServes} from "../../api/auth/authDto";
-import {changePasswordThunk, loginThunk, registerThunk} from "./authThunk";
+import {loginThunk, registerThunk} from "./authThunk";
 
 interface IInitialState {
     user: IAuthFromServes | null;
@@ -11,8 +11,7 @@ interface IInitialState {
 const user = localStorage.getItem('user')
 
 const initialState: IInitialState = {
-    // user: user ? JSON.parse(user) : null,
-    user: null,
+    user: user ? JSON.parse(user) : null,
     status: STATUS.LOADED,
 }
 
@@ -21,19 +20,23 @@ const authSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder => {
+        builder.addCase(loginThunk.pending, (state) => {
+            state.status = STATUS.LOADED;
+            state.user = null;
+        })
         builder.addCase(loginThunk.fulfilled, (state, {payload}) => {
             state.status = STATUS.LOADED;
             state.user = payload;
         })
-        builder.addCase(registerThunk.fulfilled, (state, {payload}) => {
+        builder.addCase(registerThunk.pending, (state) => {
             state.status = STATUS.LOADED;
-            console.log(payload)
-            // state.user = payload;
-        })
-        builder.addMatcher(isLoading, (state) => {
-            state.status = STATUS.LOADING;
             state.user = null;
         })
+        builder.addCase(registerThunk.fulfilled, (state, {payload}) => {
+            state.status = STATUS.LOADED;
+            state.user = payload;
+        })
+
         builder.addMatcher(isError, (state) => {
             state.status = STATUS.ERROR
         })
@@ -41,9 +44,6 @@ const authSlice = createSlice({
     })
 })
 
-function isLoading(action: AnyAction) {
-    return action.type.endsWith('pending')
-}
 
 function isError(action: AnyAction) {
     return action.type.endsWith('rejected')

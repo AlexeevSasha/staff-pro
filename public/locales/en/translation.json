@@ -1,0 +1,11 @@
+{
+  "auth" : {
+    "change_language": "Change language",
+    "no_account": "No account?",
+    "sign_up": "Sign Up",
+    "forgot_password" : "Forgot password?",
+    "remember_me": "Remember me",
+    "sign_in": "Sign In",
+    "password": "Password"
+  }
+}

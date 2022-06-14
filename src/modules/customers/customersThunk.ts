@@ -31,11 +31,10 @@ export const addSeekerThunk = createAsyncThunk<SeekerFromServiceType[], SeekerTy
 )
 
 
-export const deleteSeekerThunk = createAsyncThunk<SeekerFromServiceType[],  number>(
+export const deleteSeekerThunk = createAsyncThunk<void,  number>(
     'customers/deleteSeeker',
     async (id ) => {
-        const response = await deleteIdSeeker(id)
-        return response
+       await deleteIdSeeker(id)
     }
 )
 
@@ -55,11 +54,10 @@ export const addEmployeeThunk = createAsyncThunk<EmployeeFromServiceType[], Empl
     }
 )
 
-export const deleteEmployeeThunk = createAsyncThunk<EmployeeFromServiceType[], number>(
+export const deleteEmployeeThunk = createAsyncThunk<void, number>(
     'customers/getAllEmployee',
     async (id) => {
-        const response = await deleteIdEmployee(id)
-        return response
+       await deleteIdEmployee(id)
     }
 )
 

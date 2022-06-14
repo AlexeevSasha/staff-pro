@@ -1,9 +1,9 @@
 import {Drawer, Button, Form, Row, Col, Input, Select, InputNumber, DatePicker} from "antd";
 import {FC} from "react";
 import styled from "styled-components";
-import {IInvoices} from "../../api/invoices/invoicesDto";
-import {useAppDispatch} from "../../core/redux/reduxType";
-import {addInvoicesThunk} from "../../modules/documents/documentThunk";
+import {IInvoices} from "../../../api/documents/invoices/invoicesDto";
+import {useAppDispatch} from "../../../core/redux/reduxType";
+import {addInvoicesThunk} from "../documentThunk";
 
 const {Option} = Select;
 
@@ -26,7 +26,6 @@ export const AddNewInvoices: FC<IProps> = ({closeDrawer, visible}) => {
     const dispatch = useAppDispatch()
 
     const handlerForm = (values: IInvoices & { currency: string }) => {
-
 
         const {price, type, title, date, description, currency} = values;
         const invoice: IInvoices = {

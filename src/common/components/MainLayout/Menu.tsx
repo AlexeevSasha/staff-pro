@@ -10,7 +10,7 @@ import {
 } from '@ant-design/icons';
 import type {MenuProps} from 'antd/es/menu';
 import styled from "styled-components";
-import {NavLink} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -29,24 +29,26 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-    getItem(<NavLink to='/dashboard'>Dashboard</NavLink>, '1', <PieChartOutlined/>),
-    getItem(<NavLink to='/reports'>Reports</NavLink>, '2', <RiseOutlined/>),
+    getItem(<NavLink to='/dashboard'>Dashboard</NavLink>, 'dashboard', <PieChartOutlined/>),
+    getItem(<NavLink to='/reports'>Reports</NavLink>, 'reports', <RiseOutlined/>),
     getItem('Documents', 'sub1', <FileDoneOutlined/>, [
-        getItem(<NavLink to='/documents/invoices'>Invoices</NavLink>, '3'),
-        getItem(<NavLink to='/documents/drafts'>Drafts</NavLink>, '4'),
-        getItem(<NavLink to='/documents/templates'>Templates</NavLink>, '5'),
+        getItem(<NavLink to='/documents/invoices'>Invoices</NavLink>, 'invoices'),
+        getItem(<NavLink to='/documents/drafts'>Drafts</NavLink>, 'drafts'),
+        getItem(<NavLink to='/documents/templates'>Templates</NavLink>, 'templates'),
     ]),
-    getItem(<NavLink to='/customers'>Customers</NavLink>, '6', <UserOutlined/>),
-    getItem('Settings', '7', <SettingOutlined/>),
+    getItem(<NavLink to='/customers'>Customers</NavLink>, 'customers', <UserOutlined/>),
+    getItem(<NavLink to='/settings'>Settings</NavLink>, 'settings', <SettingOutlined/>),
     getItem('Help & Contact', '8', <InfoCircleOutlined/>),
 ];
 
 export const LeftMenu: FC = () => {
 
+    const location = useLocation().pathname
+    const path = location.split('/').filter(i => i)
+
     return (
         <MenuStyle
-            defaultSelectedKeys={['1']}
-            defaultOpenKeys={['sub1']}
+            defaultSelectedKeys={path}
             mode='inline'
             items={items}
         />

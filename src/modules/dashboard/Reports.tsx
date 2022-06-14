@@ -1,8 +1,14 @@
 import {FC} from "react";
+import {Download} from "../../common/components/Download";
 
 
-export const Reports:FC = () => {
+export const Reports: FC = () => {
+
+
     return (
-        <div>Reports</div>
+        <div>
+          {/*<Download/>*/}
+        </div>
     )
 }
+

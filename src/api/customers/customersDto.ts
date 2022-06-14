@@ -10,11 +10,10 @@ export interface ICustomers {
     sex: 'man' | 'woman';
 }
 
-
 export type EmployeeType = ICustomers & { position: string };
-export type SeekerType = ICustomers;
-
 export type EmployeeFromServiceType = EmployeeType & {id: number};
+
+export type SeekerType = ICustomers;
 export type SeekerFromServiceType = SeekerType & {id: number};
 
 

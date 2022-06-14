@@ -1,4 +1,3 @@
-
 export type invoicesType = 'paid' | 'due' | 'unpaid' | 'archived';
 
 export interface IInvoices {

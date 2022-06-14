@@ -1,23 +1,23 @@
-import {AnyAction, createSlice} from "@reduxjs/toolkit";
+import {AnyAction, createSlice, isAsyncThunkAction} from "@reduxjs/toolkit";
 import {STATUS} from "../../core/redux/reduxType";
 import {EmployeeFromServiceType, SeekerFromServiceType} from "../../api/customers/customersDto";
 import {
     addEmployeeThunk,
     addSeekerThunk,
-    deleteSeekerThunk,
     getAllEmployeeThunk,
     getAllSeekerThunk
 } from "./customersThunk";
+import {RootState} from "../../core/redux/store";
 
-
+const isRequestAction = isAsyncThunkAction(addEmployeeThunk,addSeekerThunk, getAllEmployeeThunk,getAllSeekerThunk)
 
 interface IInitialState {
-    seeker:  SeekerFromServiceType[] | null,
+    seeker: SeekerFromServiceType[] | null,
     employee: EmployeeFromServiceType[] | null,
     status: STATUS
 }
 
-const initialState: IInitialState  = {
+const initialState: IInitialState = {
     seeker: null,
     employee: null,
     status: STATUS.NEVER
@@ -26,7 +26,7 @@ const initialState: IInitialState  = {
 const customersSlice = createSlice({
     name: 'customers',
     initialState,
-    reducers: { },
+    reducers: {},
     extraReducers: (builder) => {
         //getAll
         builder.addCase(getAllSeekerThunk.pending, (state) => {
@@ -75,7 +75,14 @@ const customersSlice = createSlice({
 })
 
 function isError(action: AnyAction) {
-    return action.type.endsWith('rejected')
+    if (isRequestAction(action)) {
+        return action.type.endsWith('rejected')
+    }
+    return false;
 }
 
 export default customersSlice.reducer;
+
+export const selectSeeker = ((state: RootState) => state.customers.seeker)
+export const selectEmployee = ((state: RootState) => state.customers.employee)
+export const selectLoadingCustomers = ((state: RootState) => state.customers.status === STATUS.LOADING)

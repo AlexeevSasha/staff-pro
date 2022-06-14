@@ -11,9 +11,7 @@ export interface IAuth {
     remember: boolean;
     password?: string
 }
-export interface IAuthFromServes extends IAuth {
-    id: string;
-}
 
+export interface IAuthFromServes extends IAuth {id: string;}
 export type SignInType = Pick<IAuth, 'email' | 'remember' | 'password'>
 export type SignUpType = IAuth & {confirm?: string, agree?: boolean}

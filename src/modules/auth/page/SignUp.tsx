@@ -1,14 +1,16 @@
 import {FC} from "react";
 import {Link, useNavigate} from 'react-router-dom'
 import styled from "styled-components";
-import {Button, Checkbox, Form, Input, InputNumber, Select} from "antd";
+import {Button, Checkbox, Form, Input, InputNumber, Select, Spin} from "antd";
 import {monthOptions} from "../../../core/utils/options";
 import {SignUpType} from "../../../api/auth/authDto";
-import {useAppDispatch} from "../../../core/redux/reduxType";
+import {useAppDispatch, useAppSelector} from "../../../core/redux/reduxType";
 import {registerThunk} from "../authThunk";
+import {selectLoadingUser} from "../authSlice";
 
 export const SignUp: FC = () => {
     const navigate = useNavigate()
+    const loading = useAppSelector(selectLoadingUser)
     const dispatch = useAppDispatch()
     const onFinish = (data: SignUpType) => {
         delete data.agree;
@@ -17,6 +19,7 @@ export const SignUp: FC = () => {
     };
     return (
         <Flex>
+            <Spin  spinning={loading}/>
             <Form
                 name="signIn"
                 layout='vertical'

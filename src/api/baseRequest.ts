@@ -1,6 +1,6 @@
 import {errorNotification} from "../common/components/Notification";
 
-export const BASE_URL = 'http://localhost:3004/'
+export const BASE_URL = 'http://localhost:3004/';
 
 interface IData  {
     method: "POST" | 'GET' | 'PATCH' | 'DELETE',
@@ -11,7 +11,7 @@ const request = async (url: string, data: IData) => {
     const response = await fetch(url, {
         ...data,
         headers: {
-            "Content-type": "application/json;charset=utf-8"
+            "Content-type": "application/json"
         }
     });
     if (response.ok) {
@@ -46,11 +46,6 @@ const request = async (url: string, data: IData) => {
 }
 
 export const get = (url: string) => request(`${BASE_URL}${url}`, {method: "GET"})
-
-export const post = (url: string, body: string ) => {
-    return request(`${BASE_URL}${url}`, {method: "POST", body})
-}
-export const patch = (url: string, body: string) => {
-    return request(`${BASE_URL}${url}`, {method: "PATCH", body})
-}
+export const post = (url: string, body: string ) => request(`${BASE_URL}${url}`, {method: "POST", body})
+export const patch = (url: string, body: string) => request(`${BASE_URL}${url}`, {method: "PATCH", body})
 export const remove = (url: string) => request(`${BASE_URL}${url}`, {method: "DELETE"})

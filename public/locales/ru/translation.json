@@ -1,0 +1,11 @@
+{
+  "auth" : {
+    "change_language": "Сменить язык",
+    "no_account": "Нет аккаунта?",
+    "sign_up": "Зарегистрироваться",
+    "forgot_password" : "Забыли пароль?",
+    "remember_me": "Запомнить меня",
+    "sign_in": "Войти",
+    "password": "Пароль"
+  }
+}

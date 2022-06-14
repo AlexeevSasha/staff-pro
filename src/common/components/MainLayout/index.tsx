@@ -15,7 +15,7 @@ export const MainLayout = () => {
     return (
         <>
             <BlackDiv visible={visible} onClick={toggle}/>
-            <div style={{background: '#F0F2F5', height: '100vh'}}>
+            <div style={{background: '#F0F2F5', minHeight: '100vh'}}>
                 <Wrapper><HeaderMenu/></Wrapper>
                 <LeftMenuStyle visible={visible}>
                     <LeftMenu/>
@@ -33,8 +33,6 @@ export const MainLayout = () => {
 
 const ContentStyle = styled(Content)`
     min-height: calc(100vh - 110px);
-     background: white;
-  padding: 0 20px;
 `
 
 const BlackDiv = styled.div<{ visible: boolean }>`

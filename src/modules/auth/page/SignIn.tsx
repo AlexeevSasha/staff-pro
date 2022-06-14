@@ -1,64 +1,70 @@
 import {FC} from "react";
 import {Link} from 'react-router-dom'
 import styled from "styled-components";
-import {Button, Checkbox, Form, Input} from "antd";
+import {Button, Checkbox, Form, Input, Spin} from "antd";
 import {SignInType} from "../../../api/auth/authDto";
-import {useAppDispatch} from "../../../core/redux/reduxType";
+import { useAppDispatch, useAppSelector} from "../../../core/redux/reduxType";
 import {loginThunk} from "../authThunk";
+import {selectLoadingUser} from "../authSlice";
+import {useTranslation} from "react-i18next";
 
 
 export const SignIn: FC = () => {
+    const {t} = useTranslation();
     const dispatch = useAppDispatch()
+    const loading = useAppSelector(selectLoadingUser)
     const onFinish = (values: SignInType) => {
         dispatch(loginThunk(values))
     };
     return (
         <>
-            <NoAccount>Нет аккаунта?&nbsp;<Link to='/register'>Зарегистрироваться</Link></NoAccount>
-            <Flex>
-                <Form
-                    name="signIn"
-                    layout='vertical'
-                    initialValues={{remember: true}}
-                    onFinish={onFinish}
-                    autoComplete="off"
-                >
-                    <Form.Item
-                        label="Эл. адрес"
-                        name="email"
-                        rules={[
-                            {required: true, message: 'Please input your email'},
-                            {type: 'email', message: 'The input is not valid E-mail'},
-                        ]}
+            <NoAccount>{t('auth.no_account')}&nbsp;<Link to='/register'>{t('auth.sign_up')}</Link></NoAccount>
+            <Spin tip="Loading..." spinning={loading}>
+                <Flex>
+                    <Form
+                        name="signIn"
+                        layout='vertical'
+                        initialValues={{remember: true}}
+                        onFinish={onFinish}
+                        autoComplete="off"
                     >
-                        <Input/>
-                    </Form.Item>
+                        <Form.Item
+                            label="Email"
+                            name="email"
+                            rules={[
+                                {required: true, message: 'Please input your email'},
+                                {type: 'email', message: 'The input is not valid E-mail'},
+                            ]}
+                        >
+                            <Input/>
+                        </Form.Item>
 
-                    <Form.Item
-                        label="Пароль"
-                        name="password"
-                        rules={[
-                            {required: true, message: 'Please input your password'},
-                            {min: 8, max: 64, message: 'Password must be between 8 and 64 characters'}
-                        ]}
-                    >
-                        <Input.Password/>
-                    </Form.Item>
+                        <Form.Item
+                            label={t('auth.password')}
+                            name="password"
+                            rules={[
+                                {required: true, message: 'Please input your password'},
+                                {min: 8, max: 64, message: 'Password must be between 8 and 64 characters'}
+                            ]}
+                        >
+                            <Input.Password/>
+                        </Form.Item>
 
 
-                    <Form.Item name="remember" valuePropName="checked">
-                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                            <Checkbox>Запомнить меня</Checkbox>
-                            <Link to='/forgot-password'>Забыли пароль?</Link>
-                        </div>
-                    </Form.Item>
+                        <Form.Item name="remember" valuePropName="checked">
+                            <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                                <Checkbox>{t('auth.remember_me')}</Checkbox>
+                                <Link to='/forgot-password'>{t('auth.forgot_password')}</Link>
+                            </div>
+                        </Form.Item>
 
 
-                    <Button type="primary" htmlType="submit">
-                        Войти
-                    </Button>
-                </Form>
-            </Flex>
+                        <Button type="primary" htmlType="submit">
+                            {t('auth.sign_in')}
+                        </Button>
+                    </Form>
+                </Flex>
+            </Spin>
         </>
     )
 }

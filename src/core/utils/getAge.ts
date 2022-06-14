@@ -1,3 +1,4 @@
+import moment from "moment";
 
 
 export const getAge = (dateString: string) => {
@@ -11,3 +12,10 @@ export const getAge = (dateString: string) => {
     }
     return age;
 }
+
+export const getDate = (date: string) => {
+    const today = new Date(date);
+
+    return moment(today).subtract(10, 'days').calendar();
+}
+

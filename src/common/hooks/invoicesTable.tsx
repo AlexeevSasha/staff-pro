@@ -1,10 +1,11 @@
 import {ColumnsType} from "antd/lib/table";
-import {InvoicesFromServer, invoicesType} from "../../api/invoices/invoicesDto";
+import {InvoicesFromServer, invoicesType} from "../../api/documents/invoices/invoicesDto";
 import moment from "moment";
 import {Tag} from "antd";
 
 
-const colorsType = (type: invoicesType) => {
+
+export const colorsType = (type: invoicesType) => {
     switch (type) {
         case "archived":
             return 'blue';
@@ -22,7 +23,7 @@ export const columns: ColumnsType<InvoicesFromServer> = [
         title: 'Title',
         dataIndex: 'title',
         key: 'id',
-        render: text => <div style={{color: '#1890ff'}}>{text}</div>,
+        render: text => <div style={{color: '#1890ff'}}>{text}</div>
     },
     {
         title: 'Description',

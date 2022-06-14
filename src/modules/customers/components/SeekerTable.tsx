@@ -1,20 +1,12 @@
 import {FC, useMemo} from "react";
 import {Popconfirm, Table} from "antd";
-import type { ColumnsType } from 'antd/lib/table';
+import type {ColumnsType} from 'antd/lib/table';
 import {SeekerFromServiceType} from "../../../api/customers/customersDto";
-import {getAge} from "../../../utils/getAge";
-import {firstCharUppercase} from "../../../utils/firstCharUppercase";
+import {getAge} from "../../../core/utils/getAge";
+import {firstCharUppercase} from "../../../core/utils/firstCharUppercase";
 import {useAppDispatch} from "../../../core/redux/reduxType";
 import {deleteSeekerThunk} from "../customersThunk";
-
-
-
-
-
-
-
-
-
+import {WrapperDisplayNone768} from "../../../common/components/Style";
 
 
 interface IProps {
@@ -23,23 +15,26 @@ interface IProps {
 
 export const SeekerTable: FC<IProps> = ({seeker}) => {
     const dispatch = useAppDispatch()
-
-    const handleDelete = (id : number) => {
+    const handleDelete = (id: number) => {
         dispatch(deleteSeekerThunk(id))
     }
 
     const columns: ColumnsType<SeekerFromServiceType> = useMemo(() => (
         [
-            { title: 'Name', dataIndex: 'name', key: 'id',
-                render: (_, {name, lastname}) => <div>{firstCharUppercase(name)}&nbsp;{firstCharUppercase(lastname)}</div>
+            {
+                title: 'Name', dataIndex: 'name', key: 'id',
+                render: (_, {name, lastname}) =>
+                    <div>{firstCharUppercase(name)}&nbsp;{firstCharUppercase(lastname)}</div>
             },
-            {title: 'Age', dataIndex: 'age', key: 'id',
-                render: (_, { year, month, day}) => <div>{getAge(`${year}/${month}/${day}`)}</div>,
-                sorter: (a, b) => getAge(`${a.year}/${a.month}/${a.day}`)  - getAge(`${b.year}/${b.month}/${b.day}`),
+            {
+                title: 'Age', dataIndex: 'age', key: 'id',
+                render: (_, {year, month, day}) => <div>{getAge(`${year}/${month}/${day}`)}</div>,
+                sorter: (a, b) => getAge(`${a.year}/${a.month}/${a.day}`) - getAge(`${b.year}/${b.month}/${b.day}`),
                 sortDirections: ['ascend', 'descend', 'ascend'],
             },
-            {title: 'Email', dataIndex:'email', key: 'id'},
-            {title: 'Sex', dataIndex: 'sex', key: 'id',
+            {title: 'Email', dataIndex: 'email', key: 'id'},
+            {
+                title: 'Sex', dataIndex: 'sex', key: 'id',
                 filters: [
                     {
                         text: 'man',
@@ -55,7 +50,7 @@ export const SeekerTable: FC<IProps> = ({seeker}) => {
             {
                 title: 'Delete',
                 dataIndex: 'delete',
-                render: (_, {id}) =>(
+                render: (_, {id}) => (
                     <Popconfirm title="Sure to delete?" onConfirm={() => handleDelete(id)}>
                         <a>Delete</a>
                     </Popconfirm>
@@ -65,11 +60,13 @@ export const SeekerTable: FC<IProps> = ({seeker}) => {
     ), [])
 
     return (
-        <Table
-            columns={columns}
-            dataSource={ seeker}
-            rowKey="id"
-            pagination={{pageSize: 10}}
-        />
+        <WrapperDisplayNone768>
+            <Table
+                columns={columns}
+                dataSource={seeker}
+                rowKey="id"
+                pagination={{pageSize: 10}}
+            />
+        </WrapperDisplayNone768>
     )
 }

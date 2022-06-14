@@ -1,41 +1,57 @@
 import {Layout, Typography, Select,} from "antd";
 import {GlobalOutlined, CloseOutlined} from "@ant-design/icons";
 import styled from "styled-components";
+import {useCallback} from "react";
+import i18n from "i18next";
+import {useTranslation} from "react-i18next";
 
 const {Header} = Layout;
 const {Text} = Typography;
 const {Option} = Select;
 
 export const LanguageHeader = () => {
+    const {t} = useTranslation();
+    const languageRU = useCallback(() => i18n.changeLanguage("ru"), [])
+    const languageEN = useCallback(() => i18n.changeLanguage("en"), [])
+
+    const onChange = (lang: string) => {
+        lang === 'ru' ? languageRU() : languageEN()
+    };
 
     return (
         <HeaderStyle>
             <Flex>
                 <GlobalOutlined style={{fontSize: 21, color: '#8C8C8C'}}/>
-                <TextStyle>Сменить язык на <span style={{color: '#1890ff'}}>english</span>? </TextStyle>
-                <SelectStyle defaultValue="русский" bordered={false} dropdownStyle={{minWidth: "120px"}}>
-                    <Option value="русский">Русский</Option>
-                    <Option value="english">English</Option>
-                </SelectStyle>
+                <TextStyle>{t('auth.change_language')}</TextStyle>
+              <SelectWrapper>
+                  <Select defaultValue='ru' bordered={false} dropdownStyle={{minWidth: "120px"}} onChange={onChange}
+                  >
+                      <Option value="ru">Русский</Option>
+                      <Option value="en">English</Option>
+                  </Select>
+              </SelectWrapper>
             </Flex>
             <CloseOutlined/>
         </HeaderStyle>
     )
 }
 
-const SelectStyle = styled(Select)`
-  padding: 0;
-  color: #1890ff;
-  width: 100px;
+const SelectWrapper = styled.div`
+    & > div {
+      padding: 0;
+      color: #1890ff;
+      width: 100px;
 
-  .ant-select-arrow .anticon > svg {
-    fill: ${({theme}) => theme.colors.blue};
-  }
+      .ant-select-arrow .anticon > svg {
+        fill: ${({theme}) => theme.colors.blue};
+      }
 
-  @media ${({theme}) => theme.media._480} {
-    font-size: 14px;
-  }
+      @media ${({theme}) => theme.media._480} {
+        font-size: 14px;
+      }
+    }
 `
+
 
 const HeaderStyle = styled(Header)`
   position: relative;

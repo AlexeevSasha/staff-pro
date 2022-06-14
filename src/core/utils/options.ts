@@ -1,6 +1,4 @@
 
-
-
 export const monthOptions = [
     {value: 'january', label: 'Январь'},
     {value: 'february', label: 'Февраль'},

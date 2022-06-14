@@ -1,18 +1,21 @@
-import {AnyAction, createSlice} from '@reduxjs/toolkit'
+import {AnyAction, createSlice, isAsyncThunkAction, PayloadAction} from '@reduxjs/toolkit'
 import {STATUS} from "../../core/redux/reduxType";
 import {IAuthFromServes} from "../../api/auth/authDto";
 import {loginThunk, registerThunk} from "./authThunk";
+import {RootState} from "../../core/redux/store";
 
 interface IInitialState {
     user: IAuthFromServes | null;
     status: STATUS
 }
 
+const isRequestAction = isAsyncThunkAction(loginThunk, registerThunk)
+
 const user = localStorage.getItem('user')
 
 const initialState: IInitialState = {
     user: user ? JSON.parse(user) : null,
-    status: STATUS.LOADED,
+    status: STATUS.NEVER,
 }
 
 const authSlice = createSlice({
@@ -26,19 +29,13 @@ const authSlice = createSlice({
         }
     },
     extraReducers: (builder => {
-        builder.addCase(loginThunk.pending, (state) => {
-            state.status = STATUS.LOADED;
+
+        builder.addMatcher(isLoading, (state) => {
+            state.status = STATUS.LOADING;
             state.user = null;
         })
-        builder.addCase(loginThunk.fulfilled, (state, {payload}) => {
-            state.status = STATUS.LOADED;
-            state.user = payload;
-        })
-        builder.addCase(registerThunk.pending, (state) => {
-            state.status = STATUS.LOADED;
-            state.user = null;
-        })
-        builder.addCase(registerThunk.fulfilled, (state, {payload}) => {
+
+        builder.addMatcher(isSuccess, (state, {payload}  :PayloadAction<IAuthFromServes>) => {
             state.status = STATUS.LOADED;
             state.user = payload;
         })
@@ -50,11 +47,31 @@ const authSlice = createSlice({
     })
 })
 
+function isSuccess(action: AnyAction) {
+    if (isRequestAction(action)) {
+        return action.type.endsWith('fulfilled')
+    }
+    return false;
+}
+
+function isLoading(action: AnyAction) {
+    if (isRequestAction(action)) {
+        return action.type.endsWith('pending')
+    }
+    return false;
+}
 
 function isError(action: AnyAction) {
-    return action.type.endsWith('rejected')
+    if (isRequestAction(action)) {
+        return action.type.endsWith('rejected')
+    }
+    return false;
 }
 
 export const {logout} = authSlice.actions
 
 export default authSlice.reducer
+
+
+export const selectUser = ((state: RootState) => state.auth.user)
+export const selectLoadingUser = ((state: RootState) => state.auth.status === STATUS.LOADING)

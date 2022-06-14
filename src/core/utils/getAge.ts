@@ -1,6 +1,5 @@
 import moment from "moment";
 
-
 export const getAge = (dateString: string) => {
     const today = new Date();
     const birthDate = new Date(dateString);
